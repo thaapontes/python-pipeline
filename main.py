@@ -3,10 +3,25 @@
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
+import requests
+
 
 def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+    API_URL = "https://datausa.io/api/data?drilldowns=Nation&measures=Population"
+
+    try:
+        response = requests.get(API_URL)
+
+        if response.status_code == 200:
+            # The request was successful
+            data = response.json()  # Parse the JSON response
+            print(data)
+        else:
+            # Handle errors
+            print("Request failed with status code:", response.status_code)
+
+    except requests.exceptions.RequestException as e:
+        print("Request failed:", e)
 
 
 # Press the green button in the gutter to run the script.
