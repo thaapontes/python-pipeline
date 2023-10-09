@@ -1,9 +1,22 @@
 # This is a sample Python script.
+import csv
 
 # Press ⌃R to execute it or replace it with your code.
 # Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
 
 import requests
+from pprint import pprint
+
+
+def transform_to_csv(file: object) -> None:
+    header = ['ID Nation', 'Nation', 'ID Year', 'Year', 'Population', 'Slug Nation']
+    data = [
+        ['01000US', 'United States', '2020', '2020', '326569308', 'united-states']
+    ]
+
+    writer = csv.writer(file)
+    writer.writerow(header)
+    writer.writerow(data)
 
 
 def print_hi(name):
@@ -14,8 +27,11 @@ def print_hi(name):
 
         if response.status_code == 200:
             # The request was successful
-            data = response.json()  # Parse the JSON response
-            print(data)
+            file = open("usa_population.json", "w")
+            # file.write(response.text)
+            transform_to_csv(file)
+            file.close()
+            # pprint(response.text)
         else:
             # Handle errors
             print("Request failed with status code:", response.status_code)
